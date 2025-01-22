@@ -4,10 +4,13 @@ import BackButton from "../UI/BackButton";
 function View() {
   const { viewId } = useParams();
   const { Client } = useClientContext();
+  console.log(Client);
   const { dataClients, pendingClient } = Client;
+
+  const { users } = dataClients || { totalUsers: 0, users: [] };
   // const { clients } = dataClients || {};
-  const currentClient = dataClients?.filter((val) => val._id === viewId)[0];
-  console.log(dataClients);
+  const currentClient = users?.filter((val) => val._id === viewId)[0];
+  console.log(users);
   if (!currentClient) {
     return (
       <div className="bg-background p-6 rounded-md max-w-[1440px] mx-auto">

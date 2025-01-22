@@ -11,11 +11,12 @@ import Login from "./Pages/Login";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ClientContext from "./Components/ClientContext";
 import Edit from "./Pages/Edit";
+import Package from "./Pages/Package";
 function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />  
+      <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
           <Route path="login" element={<Login />} />
@@ -33,6 +34,7 @@ function App() {
             <Route path="client" element={<Client />} />
             <Route path="view/:viewId" element={<View />} />
             <Route path="Edit/:clientId" element={<Edit />} />
+            <Route path="package" element={<Package />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

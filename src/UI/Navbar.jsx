@@ -72,6 +72,8 @@ import { FaUserPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ExpandableButton from "./ExpandableButton";
 import { RiLogoutBoxFill, RiLogoutCircleLine } from "react-icons/ri";
+import { BiPlus } from "react-icons/bi";
+import { IoMdEye } from "react-icons/io";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -100,6 +102,28 @@ const Navbar = () => {
               <ExpandableButton
                 text="New Client"
                 icon={<FaUserPlus className="text-white w-[17px] h-[17px]" />}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="package"
+              className="flex items-center space-x-2 hover:text-neutral-light transition duration-200"
+            >
+              <ExpandableButton
+                text="Package"
+                icon={<IoMdEye className="text-white w-[17px] h-[17px]" />}
+              />
+            </Link>
+          </li>{" "}
+          <li onClick={logout}>
+            <Link
+              to="package"
+              className="flex items-center space-x-2 hover:text-neutral-light transition duration-200"
+            >
+              <ExpandableButton
+                text="Package"
+                icon={<BiPlus className="text-white w-[17px] h-[17px]" />}
               />
             </Link>
           </li>

@@ -9,13 +9,13 @@ function Edit() {
   const { clientId } = useParams();
   const { Client } = useClientContext();
   const { dataClients, pendingClient } = Client;
+  const { users } = dataClients || { totalUsers: 0, users: [] };
   // const { Clients } = dataClients || {};
-  const currentClient = dataClients?.find((val) => val._id === clientId);
+  const currentClient = users?.find((val) => val._id === clientId);
 
   const { updateClient, isPendingUpdate } = useUpdateClientMutate(); //update api
 
   function SubmitData(value) {
-    console.log(value);
     if (!value) return;
     updateClient({
       url: "update-user",

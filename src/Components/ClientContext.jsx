@@ -10,7 +10,7 @@ function ClientContext({ children }) {
     <ClientsContext.Provider
       value={{
         Client: {
-          dataClients: dataClients?.users,
+          dataClients: dataClients,
           pendingClient,
         },
       }}

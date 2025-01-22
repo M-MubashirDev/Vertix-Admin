@@ -6,7 +6,6 @@ function Client() {
 
   function submitFunc(values) {
     if (!values) return;
-    console.log(values);
     const data = {
       firstname: values.firstname,
       lastname: values.lastname,

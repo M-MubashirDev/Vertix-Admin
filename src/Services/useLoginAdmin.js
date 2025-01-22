@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAuthData } from "../Hooks/useSecurity";
 
 const loginAdmin = async ({ email, password }) => {
   try {
@@ -6,16 +7,20 @@ const loginAdmin = async ({ email, password }) => {
       email,
       password,
     });
+
     if (response?.data?.user?.role !== "admin") {
-      throw new Error("Wronge Cradentials for Admin");
+      throw new Error("Wrong Credentials for Admin");
     }
 
-    const { token } = response.data;
-    console.log(response?.data?.user?.role, "🌏");
-    localStorage.setItem("authToken", token);
+    const { token, user } = response.data;
+    setAuthData({ token, user }); // Save data with a unique key
+
     return { success: true, token };
   } catch (error) {
-    console.error("Login error response:", error.response?.data); // Log server response
+    console.error(
+      "Login error response:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };

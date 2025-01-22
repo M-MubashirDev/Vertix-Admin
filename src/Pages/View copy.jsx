@@ -6,7 +6,6 @@ function View() {
   const { dataClients, pendinClients } = admin;
   const { Clients } = dataClients || {};
   const currentClient = Clients?.filter((val) => val._id === ClientId)[0];
-  console.log(currentClient);
   if (!currentClient) {
     s;
     return (
