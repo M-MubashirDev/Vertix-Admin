@@ -15,3 +15,19 @@ export const getServiceStations = async ({ url }) => {
     throw err;
   }
 };
+export const updatePackage = async ({ url, id, updatedData }) => {
+  const { token } = getAuthData() || {};
+  try {
+    const response = await axios.patch(
+      `http://localhost:5000/api/${url}/${id}`,
+      updatedData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    HandleError(err);
+    throw err;
+  }
+};

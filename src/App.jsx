@@ -11,7 +11,10 @@ import Login from "./Pages/Login";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ClientContext from "./Components/ClientContext";
 import Edit from "./Pages/Edit";
+import PackagesView from "./Pages/PackageView";
 import Package from "./Pages/Package";
+import EditPackage from "./Pages/EditPackage";
+import PackageContext from "./Components/PackageContext";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -34,7 +37,17 @@ function App() {
             <Route path="client" element={<Client />} />
             <Route path="view/:viewId" element={<View />} />
             <Route path="Edit/:clientId" element={<Edit />} />
-            <Route path="package" element={<Package />} />
+            <Route
+              path="package"
+              element={
+                <PackageContext>
+                  <Package />
+                </PackageContext>
+              }
+            >
+              <Route index element={<PackagesView />} />
+              <Route path="edit/:packageId" element={<EditPackage />} />
+            </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

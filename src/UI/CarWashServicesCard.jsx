@@ -8,7 +8,7 @@ const CarWashServicesCard = ({ service }) => {
   console.log(service, "😁😁");
   function Click() {
     if (!service) return;
-    navigate(`${service._id}/cardetails`);
+    navigate(`edit/${service._id}`);
   }
   return (
     <div key={service._id} className="group h-[60vh]  relative  md:w-80">
@@ -47,7 +47,7 @@ const CarWashServicesCard = ({ service }) => {
             >
               <div className="relative rounded-xl bg-slate-950/50 px-4 py-3 transition-colors group-hover/btn:bg-transparent">
                 <span className="relative flex items-center justify-center gap-2">
-                  Get Started
+                  Edit Station & Service
                   <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </span>
               </div>

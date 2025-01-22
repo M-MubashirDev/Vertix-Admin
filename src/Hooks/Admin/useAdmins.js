@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { getServiceStations } from "../../Services/Admin";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getServiceStations, updatePackage } from "../../Services/Admin";
 import { getAuthData } from "../useSecurity";
 import { useSearchParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function UsegetServiceStations() {
   const { user } = getAuthData() || {};
@@ -36,4 +37,24 @@ export function UsegetStationPackages() {
   });
 
   return { dataPackages, pendingPackage, error };
+}
+export function useUpdatePackageMutate() {
+  const queryClient = useQueryClient();
+  const {
+    mutate: mutatePackage,
+    isLoading: isPendingUpdate,
+    isSuccess,
+  } = useMutation({
+    mutationFn: updatePackage, // The update function you’ve defined earlier
+    onSuccess: () => {
+      toast.success("Package has been Updated");
+      queryClient.invalidateQueries(["getPackages"]);
+    },
+    onError: (error) => {
+      toast.error("Please Try Again: " + error.message);
+      console.error("update Error:", error);
+    },
+  });
+
+  return { mutatePackage, isPendingUpdate, isSuccess };
 }
