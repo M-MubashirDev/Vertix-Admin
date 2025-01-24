@@ -169,7 +169,6 @@ function RegisterUserDetails() {
       Click: (value) => {
         if (!value) return;
         deleteClient({ url: `delete-user`, id: value._id });
-        console.log("Deleted:", value);
       },
     },
   ];

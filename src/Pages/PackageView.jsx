@@ -1,30 +1,39 @@
-// import { useEffect, useState } from "react";
+// import { useEffect } from "react";
 // import { FaMapMarkerAlt, FaHome, FaArrowDown, FaArrowUp } from "react-icons/fa";
-// import {
-//   UsegetServiceStations,
-//   UsegetStationPackages,
-// } from "../Hooks/Admin/useAdmins";
-// import { useSearchParams } from "react-router-dom";
-// import CarWashServicesCard from "../UI/CarWashServicesCard";
 
-// function ServiceStations() {
-//   const { dataServiceStations, pendingServiceStation } =
-//     UsegetServiceStations(); // Fetching service station data
-//   const { dataPackages, pendingPackage } = UsegetStationPackages();
+// import { useNavigate, useSearchParams } from "react-router-dom";
+// import CarWashServicesCard from "../UI/CarWashServicesCard";
+// import { usePackageContext } from "../Components/PackageContext";
+// import { useDeleteStationPackages } from "../Hooks/Admin/useAdmins";
+// import { useQueryClient } from "@tanstack/react-query";
+
+// function PackagesView() {
+//   const queryClient = useQueryClient();
+//   const navigate = useNavigate();
+//   // delete-package/:id
+//   const { deletePackageMutate, isPendingPackageDel } =
+//     useDeleteStationPackages();
+
+//   const {
+//     dataServiceStations,
+//     pendingServiceStation,
+//     dataPackages,
+//     pendingPackage,
+//   } = usePackageContext();
+
+//   console.log(dataPackages);
 
 //   const [searchParams, setSearchParams] = useSearchParams();
 //   const isOpenStation = searchParams.get("stationId");
 
-//   console.log(dataPackages);
-
 //   const togglePackages = (stationId) => {
-//     // setOpenStation(openStation === stationId ? null : stationId);
-//     console.log(stationId === isOpenStation);
 //     setSearchParams(isOpenStation === stationId ? {} : { stationId });
+
+//     // Clear dataPackages (optional, handled by React Query already)
+//     if (isOpenStation !== stationId) {
+//       queryClient.invalidateQueries(["getPackages", stationId]);
+//     }
 //   };
-//   useEffect(() => {
-//     console.log(searchParams.get("stationId"));
-//   }, [searchParams]);
 
 //   // Handle loading state
 //   if (pendingServiceStation) {
@@ -83,42 +92,63 @@
 //                 </>
 //               )}
 //             </button>
-
-//             {/* Packages Section */}
+//             <button
+//               onClick={() => navigate(`create/${station._id}`)}
+//               className="w-full mt-2 bg-primary text-white py-2 px-4 rounded-lg flex items-center justify-center transition-all hover:bg-primary-dark"
+//             >
+//               New Package
+//             </button>
 //           </div>
 //         ))}
 //       </div>
 //       <div className="mt-4 p-4 border-t border-gray-300">
 //         {isOpenStation && (
-//           <div className="flex  gap-12 justify-center flex-wrap">
-//             {dataPackages ? (
-//               dataPackages?.map((service) => (
-//                 <div key={service._id}>
-//                   <CarWashServicesCard service={service} />
+//           <div
+//             className={`flex gap-12 justify-center flex-wrap transform transition-all duration-300 ${
+//               dataPackages ? "opacity-100 scale-100" : "opacity-0 scale-95"
+//             }`}
+//           >
+//             {!dataPackages || dataPackages.length === 0 ? (
+//               <div className="text-gray-600 text-2xl font-sans">
+//                 <h1>No packages available for this station.</h1>
+//               </div>
+//             ) : (
+//               dataPackages.map((service, index) => (
+//                 <div
+//                   key={service._id}
+//                   className={`transition-all duration-300 delay-${index * 100}`}
+//                 >
+//                   <CarWashServicesCard
+//                     isOpenStation={isOpenStation}
+//                     setSearchParams={setSearchParams}
+//                     service={service}
+//                     onDelete={deletePackageMutate}
+//                   />
 //                 </div>
 //               ))
-//             ) : (
-//               <div className="text-gray-600 text-2xl font-sans">
-//                 <h1>There are no services.</h1>
-//               </div>
 //             )}
 //           </div>
 //         )}
-//         {/* Replace the above placeholder with actual package cards */}
 //       </div>
 //     </div>
 //   );
 // }
 
-// export default ServiceStations;
-import { useEffect } from "react";
+// export default PackagesView;
 import { FaMapMarkerAlt, FaHome, FaArrowDown, FaArrowUp } from "react-icons/fa";
-
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import CarWashServicesCard from "../UI/CarWashServicesCard";
 import { usePackageContext } from "../Components/PackageContext";
+import { useDeleteStationPackages } from "../Hooks/Admin/useAdmins";
+import { useQueryClient } from "@tanstack/react-query";
+import { FaPencil } from "react-icons/fa6";
 
 function PackagesView() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { deletePackageMutate, isPendingPackageDel } =
+    useDeleteStationPackages();
+
   const {
     dataServiceStations,
     pendingServiceStation,
@@ -131,13 +161,11 @@ function PackagesView() {
 
   const togglePackages = (stationId) => {
     setSearchParams(isOpenStation === stationId ? {} : { stationId });
+    if (isOpenStation !== stationId) {
+      queryClient.invalidateQueries(["getPackages", stationId]);
+    }
   };
 
-  useEffect(() => {
-    console.log("Selected station ID:", searchParams.get("stationId"));
-  }, [searchParams]);
-
-  // Handle loading state
   if (pendingServiceStation) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -146,7 +174,6 @@ function PackagesView() {
     );
   }
 
-  // Handle no data scenario
   if (!dataServiceStations || dataServiceStations.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -168,7 +195,15 @@ function PackagesView() {
             key={station._id}
             className="bg-white shadow-lg rounded-xl p-6 relative transition-transform transform hover:-translate-y-2 hover:shadow-xl"
           >
-            {/* Station Name and Details */}
+            {/* Edit Button added here */}
+            <button
+              onClick={() => navigate(`edit-station/${station._id}`)}
+              className="absolute top-2 right-2 p-2 text-primary hover:text-primary-dark transition-colors"
+              title="Edit Station"
+            >
+              <FaPencil className="text-lg" />
+            </button>
+
             <h3 className="text-lg font-bold text-primary mb-2 flex items-center">
               <FaHome className="mr-2 text-primary-dark" />
               {station.name}
@@ -179,7 +214,6 @@ function PackagesView() {
             </p>
             <p className="text-sm text-gray-600 mb-4">{station.address}</p>
 
-            {/* Toggle Button */}
             <button
               onClick={() => togglePackages(station._id)}
               className="w-full bg-primary text-white py-2 px-4 rounded-lg flex items-center justify-center transition-all hover:bg-primary-dark"
@@ -194,6 +228,12 @@ function PackagesView() {
                 </>
               )}
             </button>
+            <button
+              onClick={() => navigate(`create/${station._id}`)}
+              className="w-full mt-2 bg-primary text-white py-2 px-4 rounded-lg flex items-center justify-center transition-all hover:bg-primary-dark"
+            >
+              New Package
+            </button>
           </div>
         ))}
       </div>
@@ -204,19 +244,22 @@ function PackagesView() {
               dataPackages ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           >
-            {dataPackages && dataPackages.length > 0 ? (
+            {!dataPackages || dataPackages.length === 0 ? (
+              <div className="text-gray-600 text-2xl font-sans">
+                <h1>No packages available for this station.</h1>
+              </div>
+            ) : (
               dataPackages.map((service, index) => (
                 <div
                   key={service._id}
                   className={`transition-all duration-300 delay-${index * 100}`}
                 >
-                  <CarWashServicesCard service={service} />
+                  <CarWashServicesCard
+                    service={service}
+                    onDelete={deletePackageMutate}
+                  />
                 </div>
               ))
-            ) : (
-              <div className="text-gray-600 text-2xl font-sans">
-                <h1>There are no services.</h1>
-              </div>
             )}
           </div>
         )}

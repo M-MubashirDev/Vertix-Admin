@@ -11,7 +11,7 @@ function EditPackage() {
 
   // Get the data for the package being edited
   const currentData = dataPackages?.find((data) => packageId === data._id);
-
+  console.log(currentData, "🌏🌏", packageId._id);
   // Check if the package exists
   if (!currentData) {
     return (

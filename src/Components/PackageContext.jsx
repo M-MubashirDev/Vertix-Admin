@@ -10,7 +10,7 @@ function PackageContext({ children }) {
   const { dataServiceStations, pendingServiceStation } =
     UsegetServiceStations(); // Fetching service station data
   const { dataPackages, pendingPackage } = UsegetStationPackages();
-
+  console.log(dataPackages, "😁😁");
   return (
     <Package.Provider
       value={{

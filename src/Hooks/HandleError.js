@@ -1,5 +1,4 @@
 async function HandleError(err) {
-  console.log(err.status === 401);
   if (err.status === 401) {
     // Token is invalid or expired
     localStorage.removeItem("authToken");

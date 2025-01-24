@@ -111,7 +111,6 @@ function FileInput({
       onChange(result.url); // Update form state with selected files
       setUploading(false);
 
-      console.log(result.url);
       if (result) {
         setUploadResult(result);
       }
