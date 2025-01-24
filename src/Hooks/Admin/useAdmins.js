@@ -104,3 +104,24 @@ export function useDeleteStationPackages() {
 
   return { deletePackageMutate, isPendingPackageDel, isSuccess };
 }
+export function useUpdateStationMutate() {
+  const queryClient = useQueryClient();
+  const {
+    mutate: mutateStation,
+    isLoading: isPendingUpdate,
+    isSuccess,
+    error,
+  } = useMutation({
+    mutationFn: updatePackage, // The update function you’ve defined earlier
+    onSuccess: () => {
+      toast.success("Station has been Updated");
+      queryClient.invalidateQueries(["getStations"]);
+    },
+    onError: (error) => {
+      toast.error("Please Try Again: " + error.message);
+      console.error("update Error:", error);
+    },
+  });
+
+  return { mutateStation, isPendingUpdate, isSuccess, error };
+}

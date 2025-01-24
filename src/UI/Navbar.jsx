@@ -36,7 +36,7 @@ const Navbar = () => {
               />
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="package"
               className="flex items-center space-x-2 hover:text-neutral-light transition duration-200"
@@ -46,7 +46,7 @@ const Navbar = () => {
                 icon={<IoMdEye className="text-white w-[17px] h-[17px]" />}
               />
             </Link>
-          </li>{" "}
+          </li>{" "} */}
           <li onClick={logout}>
             <Link
               to="package"

@@ -1,9 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Form from "../UI/Form";
+import { useUpdateStationMutate } from "../Hooks/Admin/useAdmins";
+import { usePackageContext } from "../Components/PackageContext";
 
 function EditStation() {
   const { stationId } = useParams();
   const navigate = useNavigate();
+
+  const { dataServiceStations, pendingServiceStation } = usePackageContext();
+
+  const { error, mutateStation, isPendingUpdate } = useUpdateStationMutate();
 
   const handleSubmit = (formData) => {
     const updateData = {
@@ -13,10 +19,13 @@ function EditStation() {
       image: "", // Use existing image if no new upload
     };
 
-    mutate({ id: stationId, updates: updateData });
+    mutateStation({
+      id: stationId,
+      url: "service-station",
+      updatedData: updateData,
+    });
   };
-
-  if (isLoading) return <div>Loading...</div>;
+  if (isPendingUpdate) return <div>Loading...</div>;
   if (error) return <div>Error loading station: {error.message}</div>;
 
   return (
@@ -25,7 +34,7 @@ function EditStation() {
         Edit Service Station
       </h2>
 
-      <Form onSubmit={handleSubmit} defaultValues={station}>
+      <Form onSubmit={handleSubmit} defaultValues={dataServiceStations}>
         <div className="space-y-6">
           <Form.Input
             label="Station Name"
@@ -49,12 +58,13 @@ function EditStation() {
             label="Station Image"
             name="image"
             accept="image/*"
-            validation={{
-              validate: (value) => {
-                if (!value && !station?.image) return "Image is required";
-                return true;
-              },
-            }}
+            // validation={{
+            //   validate: (value) => {
+            //     if (!value && !dataServiceStations?.image)
+            //       return "Image is required";
+            //     return true;
+            //   },
+            // }}
           />
 
           <div className="flex gap-4 mt-8">
