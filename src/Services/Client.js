@@ -64,3 +64,21 @@ export const updateClients = async ({ url, id, updatedData }) => {
     throw err;
   }
 };
+export async function getServiceStations({ url }) {
+  const { token } = getAuthData() || {};
+
+  try {
+    const response = await axios.get(`http://localhost:5000/api/${url}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    if (err.response?.status === 404) {
+      return []; // Return an empty array for 404 errors
+    }
+    HandleError(err);
+  }
+}

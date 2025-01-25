@@ -29,8 +29,8 @@ function EditStation() {
   if (error) return <div>Error loading station: {error.message}</div>;
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-primary-dark mb-6">
+    <div className="p-6">
+      <h2 className="text-4xl  font-bold text-primary-dark mb-6">
         Edit Service Station
       </h2>
 
@@ -67,12 +67,12 @@ function EditStation() {
             // }}
           />
 
-          <div className="flex gap-4 mt-8">
+          <div className="flex gap-4 mt-8 max-w-[50rem]">
             <Form.ButtonSubmit>Update Station</Form.ButtonSubmit>
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors"
+              className="w-full bg-gray-200  text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
             >
               Cancel
             </button>

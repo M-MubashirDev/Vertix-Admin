@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePackageContext } from "../Components/PackageContext";
 import Form from "../UI/Form"; // Importing the Form component
 import { useUpdatePackageMutate } from "../Hooks/Admin/useAdmins";
 
 function EditPackage() {
+  const navigate = useNavigate();
   const { dataPackages } = usePackageContext();
   const { packageId } = useParams();
 
@@ -36,8 +37,8 @@ function EditPackage() {
   };
 
   return (
-    <div className=" p-6 mt-7 rounded-lg">
-      <h2 className="text-2xl font-bold  text-primary-dark mb-8">
+    <div className="  py-2 rounded-lg">
+      <h2 className="text-4xl font-bold  text-primary-dark mb-8">
         Edit Package
       </h2>
 
@@ -71,7 +72,16 @@ function EditPackage() {
         />
 
         {/* Submit Button */}
-        <Form.ButtonSubmit>Update Package</Form.ButtonSubmit>
+        <div className="flex gap-4 mt-8 max-w-[50rem]">
+          <Form.ButtonSubmit>Update Station</Form.ButtonSubmit>
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-full bg-gray-200  text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
       </Form>
     </div>
   );

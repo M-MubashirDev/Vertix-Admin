@@ -17,6 +17,7 @@ import EditPackage from "./Pages/EditPackage";
 import PackageContext from "./Components/PackageContext";
 import CreatePackage from "./Pages/CreatePackage";
 import EditStation from "./Pages/EditStation";
+import ViewUser from "./Pages/ViewUser";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -40,6 +41,7 @@ function App() {
               <Route path="edit/:packageId" element={<EditPackage />} />
               <Route path="edit-station/:stationId" element={<EditStation />} />
               <Route path="create/:stationId" element={<CreatePackage />} />
+              <Route path="users/:stationId" element={<ViewUser />} />
             </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />

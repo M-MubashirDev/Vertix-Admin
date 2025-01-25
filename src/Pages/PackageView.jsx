@@ -190,16 +190,19 @@ import { FaPencil } from "react-icons/fa6";
 import Dropdown from "../UI/DropDown";
 import { gsap } from "gsap";
 import { useRef } from "react";
+import HeadingWithAnimation from "../Components/HeadingWithAnimation";
+import { getAuthData } from "../Hooks/useSecurity";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function PackagesView() {
+  const { user } = getAuthData();
   const containerRef = useRef(null);
   const dropdownItems = [
     {
       label: "View User",
       icon: <FaEye />,
-      Click: (value) => navigate(`view/${value._id}`),
+      Click: (value) => navigate(`users/${value._id}`),
     },
     {
       label: "Edit",
@@ -299,37 +302,37 @@ function PackagesView() {
       </div>
     );
   }
-
+  // bg-gradient-to-br from-background to-primary
   return (
-    <div className="space-y-8" ref={containerRef}>
-      <h2 className="text-3xl font-bold text-primary-dark mb-6 text-center">
-        Car Wash Station Management
-      </h2>
+    <div className="space-y-8 py-6 " ref={containerRef}>
+      <div className="mb-8">
+        <HeadingWithAnimation user={user} />
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 ">
         {dataServiceStations.map((station) => (
           <div
             key={station._id}
-            className="station-card bg-background backdrop-blur-sm shadow-lg flex flex-col rounded-xl p-6 relative transition-transform border border-white/20"
+            className="station-card bg-white  shadow-lg flex flex-col rounded-xl p-6 relative transition-transform border border-white/20"
           >
             <div className="absolute top-2 right-2">
               <Dropdown
                 value={station}
                 items={dropdownItems}
                 buttonClassName="text-primary-dark bg-white/80 hover:bg-white focus:ring-2 focus:ring-primary-dark rounded-md px-2 py-1 transition-colors shadow-sm"
-                dropdownClassName="origin-top-right right-0 mt-2 w-48 rounded-md shadow-lg bg-white/95 backdrop-blur-sm ring-1 ring-black/5"
+                dropdownClassName="origin-top-right right-0 mt-2 w-48 rounded-md shadow-lg bg-white/95  ring-1 ring-black/5"
               />
             </div>
 
             <div className="mt-3 space-y-3">
               <h3 className="text-xl font-bold text-primary-dark flex items-center gap-3">
-                <FaHome className="text-primary-dark/80 text-lg shrink-0" />
-                <span className="leading-tight">{station.name}</span>
+                <FaHome className=" text-lg shrink-0" />
+                <span className="leading-tight text-black">{station.name}</span>
               </h3>
 
               <div className="space-y-2 pl-8 border-l-2 border-primary-light/30">
                 <p className="text-base text-neutral-dark flex items-center gap-3">
-                  <FaMapMarkerAlt className="text-primary/80 text-sm shrink-0" />
+                  <FaMapMarkerAlt className=" text-sm shrink-0" />
                   <span className="font-medium">{station.location}</span>
                 </p>
 
@@ -341,7 +344,7 @@ function PackagesView() {
 
             <button
               onClick={() => togglePackages(station._id)}
-              className="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-md"
+              className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-md"
             >
               {isOpenStation === station._id ? (
                 <>
@@ -358,7 +361,7 @@ function PackagesView() {
       </div>
 
       {isOpenStation && (
-        <div className="mt-8 p-6  backdrop-blur-sm   border border-white/20">
+        <div className="mt-8 p-6   border border-white/20">
           <div
             className={`flex gap-8 justify-center flex-wrap ${
               dataPackages ? "opacity-100" : "opacity-0"
@@ -373,8 +376,9 @@ function PackagesView() {
                 <CarWashServicesCard
                   key={service._id}
                   service={service}
+                  isOpenStation={isOpenStation}
                   onDelete={deletePackageMutate}
-                  className="bg-white/95 backdrop-blur-sm"
+                  className="bg-white/95 "
                 />
               ))
             )}

@@ -351,7 +351,7 @@ function ButtonSubmit({ children, isSubmitting }) {
     <button
       type="submit"
       disabled={isSubmitting}
-      className={`relative h-12 overflow-hidden text-white bg-primary-dark w-full shadow-2xl ${
+      className={`relative h-12 overflow-hidden text-white rounded-xl bg-primary-dark w-full shadow-2xl ${
         isSubmitting ? "opacity-50 cursor-not-allowed" : ""
       }`}
     >

@@ -2,10 +2,12 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   deleteClients,
   getClients,
+  getServiceStations,
   postClient,
   updateClients,
 } from "../../Services/Client";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 // export function useNewClient() {
 //   const {
@@ -91,4 +93,20 @@ export function useUpdateClientMutate() {
   });
 
   return { updateClient, isPendingUpdate, isSuccess };
+}
+export function useGetStationsUsers() {
+  const { stationId } = useParams();
+  const {
+    data: dataStationUsers,
+    isPending: pendingStationUsers,
+    error,
+  } = useQuery({
+    queryKey: ["stationStationUsers"],
+    queryFn: () =>
+      getServiceStations({ url: `get-car-registration/${stationId}` }),
+    // getServiceStations({
+    //   url: `get-car-registration/678f7da88d171d2ec3a7f831`,
+    // }),
+  });
+  return { dataStationUsers, pendingStationUsers, error };
 }
