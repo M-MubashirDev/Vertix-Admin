@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useClientContext } from "../Components/ClientContext";
+import { useClientContext } from "./ClientContext";
 import BackButton from "../UI/BackButton";
 function View() {
   const { viewId } = useParams();

@@ -8,15 +8,22 @@ function EditStation() {
   const navigate = useNavigate();
 
   const { dataServiceStations, pendingServiceStation } = usePackageContext();
-
   const { error, mutateStation, isPendingUpdate } = useUpdateStationMutate();
 
+  // Filter the specific station data
+  const filteredData = dataServiceStations?.find(
+    (data) => data._id === stationId
+  );
+
+  console.log("Filtered Data:", filteredData);
+
+  // Handle form submission
   const handleSubmit = (formData) => {
     const updateData = {
       name: formData.name,
       location: formData.location,
       address: formData.address,
-      image: "", // Use existing image if no new upload
+      image: formData.image || "", // Use existing image if no new upload
     };
 
     mutateStation({
@@ -25,16 +32,22 @@ function EditStation() {
       updatedData: updateData,
     });
   };
+
   if (isPendingUpdate) return <div>Loading...</div>;
   if (error) return <div>Error loading station: {error.message}</div>;
 
+  if (pendingServiceStation || !filteredData) {
+    return <div>Loading station data...</div>;
+  }
+
   return (
     <div className="p-6">
-      <h2 className="text-4xl  font-bold text-primary-dark mb-6">
+      <h2 className="text-4xl font-bold text-primary-dark mb-6">
         Edit Service Station
       </h2>
 
-      <Form onSubmit={handleSubmit} defaultValues={dataServiceStations}>
+      {/* Pass default values to the Form */}
+      <Form onSubmit={handleSubmit} defaultValues={filteredData}>
         <div className="space-y-6">
           <Form.Input
             label="Station Name"
@@ -54,20 +67,9 @@ function EditStation() {
             validation={{ required: "Address is required" }}
           />
 
-          <Form.FileInput
-            label="Station Image"
-            name="image"
-            accept="image/*"
-            // validation={{
-            //   validate: (value) => {
-            //     if (!value && !dataServiceStations?.image)
-            //       return "Image is required";
-            //     return true;
-            //   },
-            // }}
-          />
+          <Form.FileInput label="Station Image" name="image" accept="image/*" />
 
-          <div className="flex gap-4 mt-8 max-w-[50rem]">
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:max-w-[50rem]">
             <Form.ButtonSubmit>Update Station</Form.ButtonSubmit>
             <button
               type="button"

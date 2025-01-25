@@ -1,5 +1,5 @@
 import ClientsTable from "../Components/ClientsTable";
-import AdminClientChart from "../Components/Chart";
+import AdminClientChart from "./Chart";
 import { getAuthData } from "../Hooks/useSecurity";
 
 const Home = () => {

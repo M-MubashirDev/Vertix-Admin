@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
 import Form from "../UI/Form";
-import { useClientContext } from "../Components/ClientContext";
+import { useClientContext } from "./ClientContext";
 import { useUpdateClientMutate } from "../Hooks/Client/useClient";
 import BackButton from "../UI/BackButton";
 

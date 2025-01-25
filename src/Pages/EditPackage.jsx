@@ -72,8 +72,8 @@ function EditPackage() {
         />
 
         {/* Submit Button */}
-        <div className="flex gap-4 mt-8 max-w-[50rem]">
-          <Form.ButtonSubmit>Update Station</Form.ButtonSubmit>
+        <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:max-w-[50rem]">
+          <Form.ButtonSubmit>Update Package</Form.ButtonSubmit>
           <button
             type="button"
             onClick={() => navigate(-1)}
