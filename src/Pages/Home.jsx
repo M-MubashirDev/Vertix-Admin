@@ -3,7 +3,6 @@ import AdminClientChart from "../Components/Chart";
 import { getAuthData } from "../Hooks/useSecurity";
 
 const Home = () => {
-  const { user } = getAuthData();
   return (
     <div className="p-6 bg-background min-h-screen">
       <h1 className="text-3xl font-bold text-primary-dark mb-4">

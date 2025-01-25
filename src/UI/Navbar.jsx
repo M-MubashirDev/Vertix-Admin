@@ -25,7 +25,7 @@ const Navbar = () => {
         </div>
         <ul className="hidden md:flex space-x-8 items-center">
           {/* Add "Create New Admin" link */}
-          <li>
+          {/* <li>
             <Link
               to="/client"
               className="flex items-center space-x-2 hover:text-neutral-light transition duration-200"
@@ -35,7 +35,7 @@ const Navbar = () => {
                 icon={<FaUserPlus className="text-white w-[17px] h-[17px]" />}
               />
             </Link>
-          </li>
+          </li> */}
           {/* <li>
             <Link
               to="package"
@@ -47,7 +47,7 @@ const Navbar = () => {
               />
             </Link>
           </li>{" "} */}
-          <li onClick={logout}>
+          {/* <li onClick={logout}>
             <Link
               to="package"
               className="flex items-center space-x-2 hover:text-neutral-light transition duration-200"
@@ -57,7 +57,7 @@ const Navbar = () => {
                 icon={<BiPlus className="text-white w-[17px] h-[17px]" />}
               />
             </Link>
-          </li>
+          </li> */}
           <li onClick={logout}>
             <Link
               to="/login"

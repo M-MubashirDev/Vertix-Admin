@@ -29,25 +29,13 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <ClientContext>
+                <PackageContext>
                   <Layout />
-                </ClientContext>
+                </PackageContext>
               </ProtectedRoute>
             }
           >
-            <Route index element={<Home />} />
-            <Route path="client" element={<Client />} />
-            <Route path="view/:viewId" element={<View />} />
-            <Route path="Edit/:clientId" element={<Edit />} />
-            <Route
-              path="package"
-              element={
-                <PackageContext>
-                  <Package />
-                </PackageContext>
-              }
-            >
-              <Route index element={<PackagesView />} />
+            <Route path="/" element={<Package />}>
               <Route index element={<PackagesView />} />
               <Route path="edit/:packageId" element={<EditPackage />} />
               <Route path="edit-station/:stationId" element={<EditStation />} />
