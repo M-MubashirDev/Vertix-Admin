@@ -86,6 +86,7 @@ const CarWashServicesCard = ({
   function handleEdit() {
     if (!service) return;
     // navigate(`edit/${service._id}`);
+    console.log(isOpenStation);
     navigate(`edit/${service._id}/?stationId=${isOpenStation}`);
   }
 
