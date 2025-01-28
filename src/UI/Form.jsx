@@ -8,6 +8,7 @@ import {
   useController,
 } from "react-hook-form";
 import handleUpload from "../Hooks/useUploadCloudnary";
+import { Spinner } from "./Spinner";
 
 // Main Form Component
 function Form({ children, onSubmit, defaultValues = {} }) {
@@ -351,17 +352,16 @@ function ButtonSubmit({ children, isSubmitting }) {
     <button
       type="submit"
       disabled={isSubmitting}
-      className={`relative h-12 overflow-hidden text-white rounded-xl bg-primary-dark w-full shadow-2xl ${
+      className={`relative h-12 overflow-hidden rounded-xl text-white bg-primary-dark w-full shadow-2xl ${
         isSubmitting ? "opacity-50 cursor-not-allowed" : ""
       }`}
     >
-      <span className="relative z-10">
-        {isSubmitting ? "Submitting..." : children}
+      <span className="relative flex justify-center z-10">
+        {isSubmitting ? <Spinner /> : children}
       </span>
     </button>
   );
 }
-
 // Export Subcomponents
 Form.ButtonSubmit = ButtonSubmit;
 Form.ConfirmPasswordInput = ConfirmPasswordInput;

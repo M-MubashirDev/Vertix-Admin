@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from "../UI/Form";
 import { usePostStationPackages } from "../Hooks/Admin/useAdmins";
 
 function CreatePackage() {
+  const navigate = useNavigate();
   const { stationId } = useParams(); // Get the `stationId` from the URL
   const { postPackageMutate, isPendingPackage } = usePostStationPackages();
 
@@ -51,7 +52,19 @@ function CreatePackage() {
         />
 
         {/* Submit Button */}
-        <Form.ButtonSubmit>Create Package</Form.ButtonSubmit>
+        {/* <Form.ButtonSubmit>Create Package</Form.ButtonSubmit> */}
+        <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:max-w-[50rem]">
+          <Form.ButtonSubmit isSubmitting={isPendingPackage}>
+            Create Package
+          </Form.ButtonSubmit>
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
       </Form>
     </div>
   );

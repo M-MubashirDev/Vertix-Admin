@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGetStationsUsers } from "../Hooks/Client/useClient";
+import FullPageSpinner from "../UI/Spinner";
 
 function ViewUser() {
   const { dataStationUsers, pendingStationUsers } = useGetStationsUsers();
@@ -35,11 +36,7 @@ function ViewUser() {
     });
 
   if (pendingStationUsers) {
-    return (
-      <div className="flex justify-center items-center h-[200px]">
-        Loading...
-      </div>
-    );
+    return <FullPageSpinner />;
   }
 
   return (

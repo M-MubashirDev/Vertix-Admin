@@ -90,6 +90,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Form from "../UI/Form";
 import { useUpdateStationMutate } from "../Hooks/Admin/useAdmins";
 import { usePackageContext } from "../Components/PackageContext";
+import { Spinner } from "../UI/Spinner";
 
 function EditStation() {
   const { stationId } = useParams();
@@ -123,11 +124,8 @@ function EditStation() {
     });
   };
 
-  if (isPendingUpdate) return <div>Loading...</div>;
-  if (error) return <div>Error loading station: {error.message}</div>;
-
   if (pendingServiceStation || !filteredData) {
-    return <div>Loading station data...</div>;
+    return <Spinner />;
   }
 
   return (
@@ -184,11 +182,13 @@ function EditStation() {
           <Form.FileInput label="Station Image" name="image" accept="image/*" />
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:max-w-[50rem]">
-            <Form.ButtonSubmit>Update Station</Form.ButtonSubmit>
+            <Form.ButtonSubmit isSubmitting={isPendingUpdate}>
+              Update Package
+            </Form.ButtonSubmit>
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="w-full bg-gray-200  text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
+              className="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
             >
               Cancel
             </button>

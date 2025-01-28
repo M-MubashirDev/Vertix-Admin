@@ -9,5 +9,19 @@ const FullPageSpinner = () => {
     </div>
   );
 };
+export const Spinner = ({
+  size = "w-6 h-6",
+  color = "border-primary-light",
+}) => {
+  return (
+    <div
+      className={`animate-spin ${size} border-4 border-t-transparent rounded-full ${color}`}
+      style={{
+        borderColor: "#3B4D61", // Light blue for other edges
+        borderTopColor: "transparent", // Transparent for top edge
+      }}
+    ></div>
+  );
+};
 
 export default FullPageSpinner;

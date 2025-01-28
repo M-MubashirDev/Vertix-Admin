@@ -2,10 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePackageContext } from "../Components/PackageContext";
 import Form from "../UI/Form"; // Importing the Form component
 import { useUpdatePackageMutate } from "../Hooks/Admin/useAdmins";
+import FullPageSpinner from "../UI/Spinner";
 
 function EditPackage() {
   const navigate = useNavigate();
-  const { dataPackages } = usePackageContext();
+  const { dataPackages, pendingPackage, isSuccess } = usePackageContext();
   const { packageId } = useParams();
 
   const { mutatePackage, isPendingUpdate } = useUpdatePackageMutate();
@@ -14,6 +15,7 @@ function EditPackage() {
   const currentData = dataPackages?.find((data) => packageId === data._id);
   console.log(currentData, "🌏🌏", packageId._id);
   // Check if the package exists
+  if (pendingPackage) return <FullPageSpinner />;
   if (!currentData) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -23,7 +25,6 @@ function EditPackage() {
       </div>
     );
   }
-
   // Handler for form submission
   const handleSubmit = (updated) => {
     const { _id, __v, ...sanitizedData } = updated; // Remove _id and __v
@@ -72,12 +73,15 @@ function EditPackage() {
         />
 
         {/* Submit Button */}
+
         <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:max-w-[50rem]">
-          <Form.ButtonSubmit>Update Package</Form.ButtonSubmit>
+          <Form.ButtonSubmit isSubmitting={isPendingUpdate}>
+            Update Package
+          </Form.ButtonSubmit>
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="w-full bg-gray-200  text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
+            className="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors"
           >
             Cancel
           </button>

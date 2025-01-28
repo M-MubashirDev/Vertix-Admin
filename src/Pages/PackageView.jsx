@@ -237,6 +237,7 @@ import Dropdown from "../UI/DropDown";
 import { gsap } from "gsap";
 import HeadingWithAnimation from "../Components/HeadingWithAnimation";
 import { getAuthData } from "../Hooks/useSecurity";
+import FullPageSpinner from "../UI/Spinner";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -289,20 +290,7 @@ function PackagesView() {
   };
 
   if (pendingServiceStation) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-pulse flex space-x-4">
-          <div className="w-12 h-12 bg-primary-dark rounded-full"></div>
-          <div className="flex-1 space-y-4 py-1">
-            <div className="h-4 bg-neutral-light rounded w-3/4"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-neutral-light rounded"></div>
-              <div className="h-4 bg-neutral-light rounded w-5/6"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <FullPageSpinner />;
   }
 
   if (!dataServiceStations?.length) {

@@ -6,7 +6,7 @@ import {
   updatePackage,
 } from "../../Services/Admin";
 import { getAuthData } from "../useSecurity";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export function UsegetServiceStations() {
@@ -15,12 +15,13 @@ export function UsegetServiceStations() {
   const {
     data: dataServiceStations,
     isPending: pendingServiceStation,
+    isSuccess: isSuccess,
     error,
   } = useQuery({
     queryKey: ["getStations"],
     queryFn: () => getServiceStations({ url: `service-stations/${user.id}` }),
   });
-  return { dataServiceStations, pendingServiceStation, error };
+  return { dataServiceStations, pendingServiceStation, error, isSuccess };
 }
 export function UsegetStationPackages() {
   const [searchParams] = useSearchParams();
@@ -29,6 +30,7 @@ export function UsegetStationPackages() {
   const {
     data: dataPackages,
     isPending: pendingPackage,
+    isSuccess: isSuccess,
     error,
   } = useQuery({
     queryKey: ["getPackages", stationId], // Add stationId to the queryKey
@@ -40,20 +42,23 @@ export function UsegetStationPackages() {
     staleTime: Infinity, // Optional: Refetch every time the stationId changes
   });
 
-  return { dataPackages, pendingPackage, error };
+  return { dataPackages, pendingPackage, error, isSuccess };
 }
 
 export function useUpdatePackageMutate() {
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const {
     mutate: mutatePackage,
-    isLoading: isPendingUpdate,
+    isPending: isPendingUpdate,
     isSuccess,
   } = useMutation({
     mutationFn: updatePackage, // The update function you’ve defined earlier
     onSuccess: () => {
-      toast.success("Package has been Updated");
       queryClient.invalidateQueries(["getPackages"]);
+      navigate("/");
+      toast.success("Package has been Updated");
     },
     onError: (error) => {
       toast.error("Please Try Again: " + error.message);
@@ -64,16 +69,18 @@ export function useUpdatePackageMutate() {
   return { mutatePackage, isPendingUpdate, isSuccess };
 }
 export function usePostStationPackages() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
     mutate: postPackageMutate,
-    isLoading: isPendingPackage,
+    isPending: isPendingPackage,
     isSuccess,
   } = useMutation({
     mutationFn: postPackage, // The update function you’ve defined earlier
     onSuccess: () => {
-      toast.success("Package has been Created");
       queryClient.invalidateQueries(["getPackages"]);
+      navigate("/");
+      toast.success("Package has been Created");
     },
     onError: (error) => {
       toast.error("Please Try Again: " + error.message);
@@ -87,7 +94,7 @@ export function useDeleteStationPackages() {
   const queryClient = useQueryClient();
   const {
     mutate: deletePackageMutate,
-    isLoading: isPendingPackageDel,
+    isPending: isPendingPackageDel,
     isSuccess,
   } = useMutation({
     mutationFn: deletePackage,
@@ -106,16 +113,18 @@ export function useDeleteStationPackages() {
 }
 export function useUpdateStationMutate() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {
     mutate: mutateStation,
-    isLoading: isPendingUpdate,
+    isPending: isPendingUpdate,
     isSuccess,
     error,
   } = useMutation({
     mutationFn: updatePackage, // The update function you’ve defined earlier
     onSuccess: () => {
-      toast.success("Station has been Updated");
       queryClient.invalidateQueries(["getStations"]);
+      navigate("/");
+      toast.success("Station has been Updated");
     },
     onError: (error) => {
       toast.error("Please Try Again: " + error.message);

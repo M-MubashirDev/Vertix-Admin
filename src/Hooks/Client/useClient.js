@@ -28,7 +28,7 @@ export function useNewClientMutate() {
 
   const {
     mutate: mutateClient,
-    isLoading: isPending,
+    isPending: isPending,
     isSuccess,
   } = useMutation({
     mutationFn: postClient,
@@ -59,7 +59,7 @@ export function useDeleteClientMutate() {
   const queryClient = useQueryClient();
   const {
     mutate: deleteClient,
-    isLoading: isPendingDelete,
+    isPending: isPendingDelete,
     isSuccess,
   } = useMutation({
     mutationFn: deleteClients,
@@ -78,7 +78,7 @@ export function useUpdateClientMutate() {
   const queryClient = useQueryClient();
   const {
     mutate: updateClient,
-    isLoading: isPendingUpdate,
+    isPending: isPendingUpdate,
     isSuccess,
   } = useMutation({
     mutationFn: updateClients, // The update function you’ve defined earlier
