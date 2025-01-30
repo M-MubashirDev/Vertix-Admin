@@ -3,10 +3,13 @@ import { setAuthData } from "../Hooks/useSecurity";
 
 const loginAdmin = async ({ email, password }) => {
   try {
-    const response = await axios.post("https://vertix-nine.vercel.app/login", {
-      email,
-      password,
-    });
+    const response = await axios.post(
+      "https://vertix-nine.vercel.app/api/login",
+      {
+        email,
+        password,
+      }
+    );
 
     if (response?.data?.user?.role !== "admin") {
       throw new Error("Wrong Credentials for Admin");
