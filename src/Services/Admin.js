@@ -5,7 +5,7 @@ import HandleError from "../Hooks/HandleError";
 export const getServiceStations = async ({ url }) => {
   const { token } = getAuthData() || {};
   try {
-    const response = await axios.get(`http://localhost:5000/api/${url}`, {
+    const response = await axios.get(`https://vertix-nine.vercel.app/${url}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -18,7 +18,7 @@ export const updatePackage = async ({ url, id, updatedData }) => {
   const { token } = getAuthData() || {};
   try {
     const response = await axios.patch(
-      `http://localhost:5000/api/${url}/${id}`,
+      `https://vertix-nine.vercel.app/${url}/${id}`,
       updatedData,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -34,7 +34,7 @@ export const postPackage = async ({ url, data }) => {
   const { token } = getAuthData() || {};
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/${url}`,
+      `https://vertix-nine.vercel.app/${url}`,
       data,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -50,7 +50,7 @@ export const deletePackage = async ({ url, id }) => {
   const { token } = getAuthData() || {};
   try {
     const response = await axios.delete(
-      `http://localhost:5000/api/${url}/${id}`,
+      `https://vertix-nine.vercel.app/${url}/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

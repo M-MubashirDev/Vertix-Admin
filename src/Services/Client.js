@@ -6,7 +6,7 @@ export const postClient = async ({ url, data }) => {
   const { token } = getAuthData() || {}; // Get the token dynamically
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/${url}`,
+      `https://vertix-nine.vercel.app/${url}`,
       data,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -22,7 +22,7 @@ export const postClient = async ({ url, data }) => {
 export const getClients = async ({ url }) => {
   const { token } = getAuthData() || {};
   try {
-    const response = await axios.get(`http://localhost:5000/api/${url}`, {
+    const response = await axios.get(`https://vertix-nine.vercel.app/${url}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -36,7 +36,7 @@ export const deleteClients = async ({ url, id }) => {
   const { token } = getAuthData() || {};
   try {
     const response = await axios.delete(
-      `http://localhost:5000/api/${url}/${id}`,
+      `https://vertix-nine.vercel.app/${url}/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -52,7 +52,7 @@ export const updateClients = async ({ url, id, updatedData }) => {
   const { token } = getAuthData() || {};
   try {
     const response = await axios.patch(
-      `http://localhost:5000/api/${url}/${id}`,
+      `https://vertix-nine.vercel.app/${url}/${id}`,
       updatedData,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -68,7 +68,7 @@ export async function getServiceStations({ url }) {
   const { token } = getAuthData() || {};
 
   try {
-    const response = await axios.get(`http://localhost:5000/api/${url}`, {
+    const response = await axios.get(`https://vertix-nine.vercel.app/${url}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
