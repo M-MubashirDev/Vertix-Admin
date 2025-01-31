@@ -19,7 +19,7 @@ import Dropdown from "../UI/DropDown";
 import { gsap } from "gsap";
 import HeadingWithAnimation from "../Components/HeadingWithAnimation";
 import { getAuthData } from "../Hooks/useSecurity";
-import FullPageSpinner from "../UI/Spinner";
+import FullPageSpinner, { Spinner } from "../UI/Spinner";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -48,8 +48,12 @@ function PackagesView() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { deletePackageMutate } = useDeleteStationPackages();
-  const { dataServiceStations, pendingServiceStation, dataPackages } =
-    usePackageContext();
+  const {
+    dataServiceStations,
+    pendingServiceStation,
+    dataPackages,
+    pendingPackage,
+  } = usePackageContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const isOpenStation = searchParams.get("stationId");
 
@@ -154,7 +158,11 @@ function PackagesView() {
           >
             {!dataPackages?.length ? (
               <div className="text-neutral-dark text-xl py-8">
-                No packages available for this station.
+                {pendingPackage ? (
+                  <Spinner />
+                ) : (
+                  "No packages available for this station."
+                )}
               </div>
             ) : (
               dataPackages.map((service) => (

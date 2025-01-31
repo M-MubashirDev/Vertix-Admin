@@ -2,7 +2,7 @@ import useMutateLoginAdmin from "../Hooks/Admin/useMutateLoginAdmin";
 import Form from "../UI/Form";
 
 function Login() {
-  const { loginAdminMutate } = useMutateLoginAdmin();
+  const { loginAdminMutate, pendLogin } = useMutateLoginAdmin();
 
   async function Submit(e) {
     if (!e.email || !e.password) {
@@ -53,7 +53,8 @@ function Login() {
           />
 
           {/* Submit Button */}
-          <Form.ButtonSubmit>Login</Form.ButtonSubmit>
+          {/* <Form.ButtonSubmit>Login</Form.ButtonSubmit> */}
+          <Form.ButtonSubmit isSubmitting={pendLogin}>Login</Form.ButtonSubmit>
         </Form>
       </div>
     </div>

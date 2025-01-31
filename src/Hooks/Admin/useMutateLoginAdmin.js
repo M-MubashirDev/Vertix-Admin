@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function useMutateLoginAdmin() {
   const navigate = useNavigate();
-  const { mutate: loginAdminMutate } = useMutation({
+  const { mutate: loginAdminMutate, isPending: pendLogin } = useMutation({
     mutationFn: loginAdmin,
     onSuccess: () => {
       toast.success("Login successful!");
@@ -16,7 +16,7 @@ function useMutateLoginAdmin() {
       console.error("Login failed:", error);
     },
   });
-  return { loginAdminMutate };
+  return { loginAdminMutate, pendLogin };
 }
 
 export default useMutateLoginAdmin;
