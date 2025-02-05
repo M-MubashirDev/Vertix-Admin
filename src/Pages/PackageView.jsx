@@ -84,16 +84,15 @@ function PackagesView() {
       <div className="mb-8">
         <HeadingWithAnimation user={user} />
       </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-        {!dataServiceStations?.length ? (
-          <div className="flex justify-center items-center h-screen">
-            <p className="text-lg font-semibold text-neutral-dark">
-              No service stations found.
-            </p>
-          </div>
-        ) : (
-          dataServiceStations.map((station) => (
+      {!dataServiceStations?.length ? (
+        <div className="flex justify-center items-center ">
+          <p className="text-lg font-semibold text-neutral-dark">
+            No service stations found.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+          {dataServiceStations.map((station) => (
             <div
               key={station._id}
               className="station-card bg-white shadow-lg flex flex-col rounded-xl p-6 relative transition-transform border border-white/20"
@@ -140,10 +139,9 @@ function PackagesView() {
                 )}
               </button>
             </div>
-          ))
-        )}
-      </div>
-
+          ))}
+        </div>
+      )}
       {isOpenStation && (
         <div
           ref={packageSectionRef}
