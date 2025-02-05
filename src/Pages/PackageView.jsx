@@ -79,16 +79,6 @@ function PackagesView() {
     return <FullPageSpinner />;
   }
 
-  if (!dataServiceStations?.length) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-lg font-semibold text-neutral-dark">
-          No service stations found.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-8 py-6" ref={containerRef}>
       <div className="mb-8">
@@ -96,54 +86,62 @@ function PackagesView() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-        {dataServiceStations.map((station) => (
-          <div
-            key={station._id}
-            className="station-card bg-white shadow-lg flex flex-col rounded-xl p-6 relative transition-transform border border-white/20"
-          >
-            <div className="absolute top-2 right-2">
-              <Dropdown
-                value={station}
-                items={dropdownItems}
-                buttonClassName="text-primary-dark bg-white/80 hover:bg-white focus:ring-2 focus:ring-primary-dark rounded-md px-2 py-1 transition-colors shadow-sm"
-                dropdownClassName="origin-top-right right-0 mt-2 w-48 rounded-md shadow-lg bg-white/95  ring-1 ring-black/5"
-              />
-            </div>
-
-            <div className="mt-3 space-y-3">
-              <h3 className="text-xl font-bold text-primary-dark flex items-center gap-3">
-                <FaHome className="text-lg shrink-0" />
-                <span className="leading-tight">{station.name}</span>
-              </h3>
-
-              <div className="space-y-2 pl-8 border-l-2 border-primary-light/30">
-                <p className="text-base text-neutral-dark flex items-center gap-3">
-                  <FaMapMarkerAlt className="text-sm shrink-0" />
-                  <span className="font-medium">{station.location}</span>
-                </p>
-
-                <p className="text-sm text-neutral-default leading-relaxed">
-                  {station.address}
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={() => togglePackages(station._id)}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-md"
-            >
-              {isOpenStation === station._id ? (
-                <>
-                  Hide Packages <FaArrowUp className="ml-2" />
-                </>
-              ) : (
-                <>
-                  View Packages <FaArrowDown className="ml-2" />
-                </>
-              )}
-            </button>
+        {!dataServiceStations?.length ? (
+          <div className="flex justify-center items-center h-screen">
+            <p className="text-lg font-semibold text-neutral-dark">
+              No service stations found.
+            </p>
           </div>
-        ))}
+        ) : (
+          dataServiceStations.map((station) => (
+            <div
+              key={station._id}
+              className="station-card bg-white shadow-lg flex flex-col rounded-xl p-6 relative transition-transform border border-white/20"
+            >
+              <div className="absolute top-2 right-2">
+                <Dropdown
+                  value={station}
+                  items={dropdownItems}
+                  buttonClassName="text-primary-dark bg-white/80 hover:bg-white focus:ring-2 focus:ring-primary-dark rounded-md px-2 py-1 transition-colors shadow-sm"
+                  dropdownClassName="origin-top-right right-0 mt-2 w-48 rounded-md shadow-lg bg-white/95  ring-1 ring-black/5"
+                />
+              </div>
+
+              <div className="mt-3 space-y-3">
+                <h3 className="text-xl font-bold text-primary-dark flex items-center gap-3">
+                  <FaHome className="text-lg shrink-0" />
+                  <span className="leading-tight">{station.name}</span>
+                </h3>
+
+                <div className="space-y-2 pl-8 border-l-2 border-primary-light/30">
+                  <p className="text-base text-neutral-dark flex items-center gap-3">
+                    <FaMapMarkerAlt className="text-sm shrink-0" />
+                    <span className="font-medium">{station.location}</span>
+                  </p>
+
+                  <p className="text-sm text-neutral-default leading-relaxed">
+                    {station.address}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => togglePackages(station._id)}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-md"
+              >
+                {isOpenStation === station._id ? (
+                  <>
+                    Hide Packages <FaArrowUp className="ml-2" />
+                  </>
+                ) : (
+                  <>
+                    View Packages <FaArrowDown className="ml-2" />
+                  </>
+                )}
+              </button>
+            </div>
+          ))
+        )}
       </div>
 
       {isOpenStation && (
