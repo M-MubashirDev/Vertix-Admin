@@ -139,11 +139,11 @@ const CarWashServicesCard = ({
           <div className="relative mt-auto">
             <button
               onClick={handleEdit}
-              className="group/btn relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-white to-primary-light p-px font-semibold text-white shadow-[0_1000px_0_0_hsl(0_0%_100%_/_0%)_inset] transition-colors hover:shadow-[0_1000px_0_0_hsl(0_0%_100%_/_2%)_inset]"
+              className="group/btn r  elative w-full overflow-hidden rounded-xl bg-gradient-to-r from-white to-primary-light p-px font-semibold text-white shadow-[0_1000px_0_0_hsl(0_0%_100%_/_0%)_inset] transition-colors hover:shadow-[0_1000px_0_0_hsl(0_0%_100%_/_2%)_inset]"
             >
-              <div className="relative rounded-xl bg-slate-950/50 px-4 py-3 transition-colors group-hover/btn:bg-transparent">
-                <span className="relative flex items-center justify-center gap-2">
-                  Edit Station & Service
+              <div className="relative text-sm sm:text-lg rounded-xl bg-slate-950/50 px-4 py-3 transition-colors group-hover/btn:bg-transparent">
+                <span className="relative flex items-center justify-center gap-1 sm:gap-2">
+                  Edit Packages
                   <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </span>
               </div>
