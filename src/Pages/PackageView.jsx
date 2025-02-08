@@ -38,11 +38,11 @@ function PackagesView() {
       icon: <FaPencil className="text-lg" />,
       Click: (value) => navigate(`edit-station/${value._id}`),
     },
-    {
-      label: "New Package",
-      icon: <FaPlus />,
-      Click: (value) => navigate(`create/${value._id}`),
-    },
+    // {
+    //   label: "New Package",
+    //   icon: <FaPlus />,
+    //   Click: (value) => navigate(`create/${value._id}`),
+    // },
   ];
 
   const queryClient = useQueryClient();
@@ -130,25 +130,35 @@ function PackagesView() {
                 </div>
               </div>
 
-              <button
-                onClick={() => togglePackages(station._id)}
-                className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-md"
-              >
-                {isOpenStation === station._id ? (
+              <div className="flex flex-col sm:flex-row gap-2 mt-2">
+                <button
+                  onClick={() => togglePackages(station._id)}
+                  className="w-full bg-primary hover:bg-primary-dark text-white sm:font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors text-sm shadow-md"
+                >
+                  {isOpenStation === station._id ? (
+                    <>
+                      Hide Packages <FaArrowUp className="ml-2" />
+                    </>
+                  ) : (
+                    <>
+                      View Packages <FaArrowDown className="ml-2" />
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => navigate(`create/${station._id}`)}
+                  className="w-full bg-primary hover:bg-primary-dark text-white sm:font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors text-sm shadow-md"
+                >
                   <>
-                    Hide Packages <FaArrowUp className="ml-2" />
+                    New Package <FaPlus className="ml-2" />
                   </>
-                ) : (
-                  <>
-                    View Packages <FaArrowDown className="ml-2" />
-                  </>
-                )}
-              </button>
+                </button>
+              </div>
             </div>
           ))}
         </div>
       )}
-      {isOpenStation && (
+      {(isOpenStation || pendingPackage) && (
         <div
           ref={packageSectionRef}
           className="mt-8 p-6 border border-white/20"
