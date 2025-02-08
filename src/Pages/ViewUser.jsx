@@ -42,7 +42,7 @@ function ViewUser() {
 
   return (
     <div className="mt-6 bg-background p-6 rounded-lg">
-      <h2 className="text-4xl font-bold text-center sm:text-start text-primary-dark mb-4">
+      <h2 className="text-4xl font-bold text-center  sm:text-start text-primary-dark mb-4">
         Users Details
       </h2>
 
@@ -86,7 +86,7 @@ function ViewUser() {
         </div>
       </div>
 
-      <div className="overflow-x-auto min-h-[50vh] max-h-screen scrollbar-thin shadow-md">
+      <div className="overflow-x-auto min-h-[50vh] max-h-screen scrollbar-thin rounded-lg  shadow-md">
         <table className="min-w-full bg-white border rounded-md">
           <thead className="bg-primary-dark text-white">
             <tr>
