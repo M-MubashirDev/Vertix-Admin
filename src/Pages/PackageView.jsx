@@ -130,10 +130,10 @@ function PackagesView() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-2 mt-2">
+              <div className="flex flex-col justify-center items-center sm:flex-row gap-2 mt-2">
                 <button
                   onClick={() => togglePackages(station._id)}
-                  className="w-full bg-primary hover:bg-primary-dark text-white sm:font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors text-sm shadow-md"
+                  className="w-full h-[40px] bg-primary hover:bg-primary-dark text-white sm:font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors text-sm shadow-md"
                 >
                   {isOpenStation === station._id ? (
                     <>
@@ -147,7 +147,7 @@ function PackagesView() {
                 </button>
                 <button
                   onClick={() => navigate(`create/${station._id}`)}
-                  className="w-full bg-primary hover:bg-primary-dark text-white sm:font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors text-sm shadow-md"
+                  className="w-full h-[40px] bg-primary hover:bg-primary-dark text-white sm:font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors text-sm shadow-md"
                 >
                   <>
                     New Package <FaPlus className="ml-2" />

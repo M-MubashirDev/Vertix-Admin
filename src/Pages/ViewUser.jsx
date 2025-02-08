@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGetStationsUsers } from "../Hooks/Client/useClient";
 import FullPageSpinner from "../UI/Spinner";
+import { FaCaretDown } from "react-icons/fa";
 
 function ViewUser() {
   const { dataStationUsers, pendingStationUsers } = useGetStationsUsers();
@@ -53,27 +54,32 @@ function ViewUser() {
           placeholder="Search by any field..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 border rounded-md w-full md:w-1/3"
+          className="w-full  lg:w-[40%] px-4 py-2 text-lg rounded-full border border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-light"
         />
 
         {/* Sorting and Order Controls */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           {/* Sorting Dropdown */}
-          <select
-            value={sortColumn}
-            onChange={(e) => setSortColumn(e.target.value)}
-            className="p-2 border rounded-md"
-          >
-            {sortingOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                Sort by {option.label}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              value={sortColumn}
+              onChange={(e) => setSortColumn(e.target.value)}
+              className="border rounded-full w-40 px-4 h-10 appearance-none pr-8"
+            >
+              {sortingOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  Sort by {option.label}
+                </option>
+              ))}
+            </select>
+            <span className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              <FaCaretDown className="h-4 w-4 text-gray-500" />
+            </span>
+          </div>
           {/* Sorting Order Toggle */}
           <button
             onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-            className="p-2 bg-primary-dark text-white rounded-md"
+            className="bg-primary-dark w-36   h-10  text-white rounded-full"
           >
             {sortOrder === "asc" ? "Ascending" : "Descending"}
           </button>

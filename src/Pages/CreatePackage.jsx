@@ -18,7 +18,7 @@ function CreatePackage() {
 
   return (
     <div className="mt-8 p-6 rounded-lg">
-      <h2 className="text-2xl font-bold text-primary-dark mb-6">
+      <h2 className="text-4xl font-bold text-primary-dark mb-6">
         Create Package
       </h2>
 
