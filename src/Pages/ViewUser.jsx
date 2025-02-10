@@ -31,7 +31,7 @@ function ViewUser() {
   // Filter and sort data
   const filteredAndSortedUsers = dataStationUsers
     ?.filter((user) => {
-      // Get all nested values in the user object and convert them to lower case strings
+      // Get all nested values in the user objects and convert them to lower case strings
       const allValues = flattenValues(user).map((val) =>
         String(val).toLowerCase()
       );
