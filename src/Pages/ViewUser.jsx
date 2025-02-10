@@ -5,7 +5,6 @@ import { FaCaretDown } from "react-icons/fa";
 
 function ViewUser() {
   const { dataStationUsers, pendingStationUsers } = useGetStationsUsers();
-  console.log(dataStationUsers);
 
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [sortColumn, setSortColumn] = useState("userId.firstname"); // State for sorting column
@@ -18,14 +17,28 @@ function ViewUser() {
     { label: "Station Name", value: "serviceStationId.name" },
     { label: "Package Name", value: "packageId.title" },
   ];
-
+  const flattenValues = (obj) => {
+    let values = [];
+    Object.values(obj).forEach((value) => {
+      if (value && typeof value === "object") {
+        values = values.concat(flattenValues(value));
+      } else {
+        values.push(value);
+      }
+    });
+    return values;
+  };
   // Filter and sort data
   const filteredAndSortedUsers = dataStationUsers
-    ?.filter((user) =>
-      Object.values(user).some((value) =>
-        String(value).toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    )
+    ?.filter((user) => {
+      // Get all nested values in the user object and convert them to lower case strings
+      const allValues = flattenValues(user).map((val) =>
+        String(val).toLowerCase()
+      );
+      return allValues.some((value) =>
+        value.includes(searchQuery.toLowerCase())
+      );
+    })
     ?.sort((a, b) => {
       const getValue = (obj, path) =>
         path.split(".").reduce((o, key) => o?.[key], obj);
@@ -35,7 +48,7 @@ function ViewUser() {
       if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
       return 0;
     });
-  console.log();
+  console.log(filteredAndSortedUsers, dataStationUsers, "😂😂");
   if (pendingStationUsers) {
     return <FullPageSpinner />;
   }
