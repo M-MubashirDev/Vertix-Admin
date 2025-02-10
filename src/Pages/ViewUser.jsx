@@ -14,7 +14,7 @@ function ViewUser() {
   const sortingOptions = [
     { label: "Name", value: "userId.firstname" },
     { label: "Car Name", value: "carName" },
-    { label: "Number Plate", value: "carNumber" },
+    // { label: "Number Plate", value: "carNumber" },
     { label: "Station Name", value: "serviceStationId.name" },
     { label: "Package Name", value: "packageId.title" },
   ];
