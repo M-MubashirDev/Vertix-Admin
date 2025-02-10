@@ -35,7 +35,7 @@ function ViewUser() {
       if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
       return 0;
     });
-
+  console.log();
   if (pendingStationUsers) {
     return <FullPageSpinner />;
   }
