@@ -2,12 +2,14 @@ import { useState } from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import ExpandableButton from "./ExpandableButton";
+import { clearAuthData } from "../Hooks/useSecurity";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function logout() {
-    localStorage.removeItem("authToken");
+    // localStorage.removeItem("authToken");
+    clearAuthData();
   }
 
   return (
